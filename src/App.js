@@ -24,9 +24,21 @@ class App extends Component {
   
   render() {
     const { monsters, searchField } = this.state; // const monsters = this.state.monsters and const searchFiled = this.state.searchField
-    const filterdMonsters = monsters.filter(monster => 
-      monster.name.toLowerCase().includes(searchField.toLowerCase())
-    )
+    let searchName = 'name';
+    let searchText = null;
+    let filterdMonsters = null;
+    searchText = searchField.toLocaleLowerCase();
+    searchText.includes("@") ? searchName = 'email': searchName = 'name';
+
+    if (searchName === 'name') {
+       filterdMonsters = monsters.filter(monster => 
+        monster.name.toLowerCase().includes(searchField.toLowerCase())
+      )
+    }else{
+       filterdMonsters = monsters.filter(monster => 
+        monster.email.toLowerCase().includes(searchField.toLowerCase())
+      )
+    }
     return (
       <div className='App'>
         <SearchBox
